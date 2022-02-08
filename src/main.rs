@@ -1,60 +1,20 @@
-#![allow(dead_code)] // この行でコンパイラのwaringsメッセージを止めます。
-
-enum Species {
-  Crab,
-  Octopus,
-  Fish,
-  Clam,
+struct BagOfHolding<T> {
+  item: T,
 }
-
-enum Size {
-  Big,
-  Small,
-}
-
-enum PoisonType {
-  Acidic,
-  Painful,
-  Lethal,
-}
-
-enum Weapon {
-  Claw(i32, Size),
-  Poison(PoisonType),
-  None,
-}
-
-struct SeaCreature {
-  species: Species,
-  name: String,
-  arms: i32,
-  legs: i32,
-  weapon: Weapon,
-}
-
 fn main() {
-  let ferris = SeaCreature {
-    species: Species::Crab,
-    name: String::from("Ferris"),
-    arms: 2,
-    legs: 4,
-    weapon: Weapon::Claw(2, Size::Small),
+  // 注意: ジェネリック型を使用すると、型はコンパイル時に作成される。
+  // ::<> (turbofish) で明示的に型を指定
+  let i32_bag = BagOfHolding::<i32> { item: 42 };
+  let bool_bag = BagOfHolding::<bool> { item: true };
+  // ジェネリック型でも型推論可能
+  let float_bag = BagOfHolding { item: 3.14 };
+  // 注意: 実生活では手提げ袋を手提げ袋に入れないように
+  let bag_in_bag = BagOfHolding {
+    item: BagOfHolding { item: "boom!" },
   };
 
-  match ferris.species {
-    Species::Crab => match ferris.weapon {
-      Weapon::Claw(num_claws, size) => {
-        let size_description = match size {
-          Size::Big => "big",
-          Size::Small => "small",
-        };
-        println!(
-          "ferris is a crab with {} {} craws",
-          num_claws, size_description
-        )
-      }
-      _ => println!("ferris is a crab with some other weapon"),
-    },
-    _ => println!("ferris is some other animal"),
-  }
+  println!(
+    "{} {} {} {}",
+    i32_bag.item, bool_bag.item, float_bag.item, bag_in_bag.item.item
+  );
 }
