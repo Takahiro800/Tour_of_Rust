@@ -1,4 +1,4 @@
-#![allow(dead_code)]
+#![allow(dead_code)] // この行でコンパイラのwaringsメッセージを止めます。
 
 enum Species {
   Crab,
@@ -7,12 +7,29 @@ enum Species {
   Clam,
 }
 
+enum Size {
+  Big,
+  Small,
+}
+
+enum PoisonType {
+  Acidic,
+  Painful,
+  Lethal,
+}
+
+enum Weapon {
+  Claw(i32, Size),
+  Poison(PoisonType),
+  None,
+}
+
 struct SeaCreature {
   species: Species,
   name: String,
   arms: i32,
   legs: i32,
-  weapon: String,
+  weapon: Weapon,
 }
 
 fn main() {
@@ -21,13 +38,23 @@ fn main() {
     name: String::from("Ferris"),
     arms: 2,
     legs: 4,
-    weapon: String::from("craww"),
+    weapon: Weapon::Claw(2, Size::Small),
   };
 
   match ferris.species {
-    Species::Crab => println! {"{} is a crab", ferris.name},
-    Species::Octopus => println! {"{} is a octpus", ferris.name},
-    Species::Fish => println! {"{} is a fish", ferris.name},
-    Species::Clam => println! {"{} is a clam", ferris.name},
+    Species::Crab => match ferris.weapon {
+      Weapon::Claw(num_claws, size) => {
+        let size_description = match size {
+          Size::Big => "big",
+          Size::Small => "small",
+        };
+        println!(
+          "ferris is a crab with {} {} craws",
+          num_claws, size_description
+        )
+      }
+      _ => println!("ferris is a crab with some other weapon"),
+    },
+    _ => println!("ferris is some other animal"),
   }
 }
