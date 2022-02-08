@@ -5,9 +5,14 @@ fn do_something_that_might_fail(i: i32) -> Result<f32, String> {
     Err(String::from("正しい値ではありません"))
   }
 }
-
 fn main() -> Result<(), String> {
-  let v = do_something_that_might_fail(421)?;
-  println!("発見 {}", v);
+  let result = do_something_that_might_fail(12);
+
+  match result {
+    Ok(v) => println!("発見 {}", v),
+    Err(_e) => {
+      return Err(String::from("main で何か問題が起きました"));
+    }
+  }
   Ok(())
 }
