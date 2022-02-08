@@ -1,16 +1,20 @@
-fn do_something_that_might_fail(i: i32) -> Result<f32, String> {
-  if i == 42 {
-    Ok(13.0)
-  } else {
-    Err(String::from("正しい値ではありません"))
+fn main() {
+  // 型を明示的に指定
+  let mut i32_vec = Vec::<i32>::new();
+  i32_vec.push(1);
+  i32_vec.push(2);
+  i32_vec.push(3);
+
+  // もっと賢く、型を自動的に推論
+  let mut float_vec = Vec::new();
+  float_vec.push(1.3);
+  float_vec.push(2.3);
+  float_vec.push(3.4);
+
+  // きれいなマクロ！
+  let string_vec = vec![String::from("Hello"), String::from("World")];
+
+  for word in string_vec.iter() {
+    println!("{}", word);
   }
-}
-fn main() -> Result<(), String> {
-  let v = do_something_that_might_fail(42).unwrap();
-  println!("発見 {}", v);
-
-  let v = do_something_that_might_fail(1).unwrap();
-  println!("発見 {}", v);
-
-  Ok(())
 }
