@@ -1,31 +1,22 @@
-// 部分的に定義された構造体型
-struct BagOfHolding<T> {
-  item: Option<T>,
+fn do_something_that_fail(i: i32) -> Result<f32, String> {
+  if i == 42 {
+    Ok(13.0)
+  } else {
+    Err(String::from("正しい値ではありません"))
+  }
 }
-// パラメータ T を渡すことが可能
 
 fn main() {
-  // 注意: i32 が入るバッグに、何も入っていません！
-  // None からは型が決められないため、型を指定する必要があります。
-  let i32_bag = BagOfHolding::<i32> { item: None };
+  let result = do_something_that_fail(12);
 
-  if i32_bag.item.is_none() {
-    println!("バッグには何もない！")
-  } else {
-    println!("バッグには何かある！")
+  match result {
+    Ok(v) => println!("発見 {}", v),
+    Err(e) => println!("Error: {}", e),
   }
 
-  let i32_bag = BagOfHolding::<i32> { item: Some(42) };
-
-  if i32_bag.item.is_some() {
-    println!("バッグには何かある！")
-  } else {
-    println!("バッグには何もない！")
-  }
-  // match は Option をエレガントに分解して、
-  // すべてのケースが処理されることを保証できます！
-  match i32_bag.item {
-    Some(v) => println!("バッグに {} を発見！", v),
-    None => println!("何も見つからなかった"),
+  let result = do_something_that_fail(42);
+  match result {
+    Ok(v) => println!("発見 {}", v),
+    Err(e) => println!("Error: {}", e),
   }
 }
