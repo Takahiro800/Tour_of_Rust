@@ -1,12 +1,15 @@
 struct Foo {
   x: i32,
 }
-fn main() {
-  let foo_a = Foo { x: 42 };
-  let foo_b = Foo { x: 13 };
 
-  println!("{}", foo_a.x);
-  println!("{}", foo_b.x);
-  // foo_b はここでドロップ
-  // foo_a はここでドロップ
+fn do_something(f: Foo) {
+  println!("{}", f.x);
+}
+fn main() {
+  let foo = Foo { x: 42 };
+  println!("{}", foo.x);
+  // foo の所有権は do_something に移動
+  do_something(foo);
+  // foo は使えなくなる
+  // println!("{}", foo.x);
 }
