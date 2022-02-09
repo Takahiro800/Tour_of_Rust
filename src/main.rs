@@ -1,32 +1,16 @@
-struct Foo {
-  x: i32,
-}
-
-fn do_something(f: Foo) {
-  println!("{}", f.x);
-  // f はここでドロップ
-}
 fn main() {
-  // let foo = Foo { x: 42 };
-  // println!("{:?}", foo);
-  // do_something(foo);
+  let mut foo = 42;
+  println!("{:p}", &foo);
 
-  let mut foo = Foo { x: 42 };
   let f = &mut foo;
+  println!("{:p}", &f);
+  println!("{}", f);
 
-  // 失敗: do_something(foo) はここでエラー
-  // foo は可変に借用されており移動できないため
+  let bar = *f;
+  println!("{}", bar);
+  println!("{}", f);
 
-  // 失敗: foo.x = 13; はここでエラー
-  // foo は可変に借用されている間は変更できないため
-
-  f.x = 13;
-  // f はここから先では使用されないため、ここでドロップ
-
-  println!("{}", foo.x);
-  // 可変な借用はドロップされているため変更可能
-  foo.x = 7;
-
-  // foo の所有権を関数に移動
-  do_something(foo);
+  *f = 13;
+  println!("{}", bar);
+  println!("{}", foo);
 }
