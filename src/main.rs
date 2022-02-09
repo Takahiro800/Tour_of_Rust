@@ -1,18 +1,21 @@
 struct Foo {
   x: i32,
+  y: i32,
 }
-fn do_something(f: &mut Foo) {
-  f.x += 1;
-  println!("{:p}", f);
-  // f への可変な参照はここでドロップ
+
+fn do_something(a: &Foo) -> &i32 {
+  return &a.x;
 }
 fn main() {
-  let mut foo = Foo { x: 42 };
-  println!("{}", foo.x);
-  do_something(&mut foo);
-  // 関数 do_something で可変な参照はドロップされるため、
-  // 別の参照を作ることが可能
-  println!("{}", foo.x);
-  do_something(&mut foo);
+  let mut foo = Foo { x: 42, y: 5 };
+  let x = &mut foo.x;
+  println!("{}", x);
+  *x = 13;
+  println!("{}", x);
+
+  // x はここでドロップされるため、不変な参照が作成可能
+  let y = do_something(&foo);
+  println!("{}", y);
+  // y はここでドロップ
   // foo はここでドロップ
 }
