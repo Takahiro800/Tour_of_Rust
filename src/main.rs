@@ -2,14 +2,15 @@ struct Foo {
   x: i32,
 }
 
-fn do_something(f: Foo) {
-  println!("{}", f.x);
+fn do_something() -> Foo {
+  Foo { x: 42 }
+  // 所有権は外に移動
 }
+
 fn main() {
-  let foo = Foo { x: 42 };
+  let foo = do_something();
+  // foo は所有者になる
+
   println!("{}", foo.x);
-  // foo の所有権は do_something に移動
-  do_something(foo);
-  // foo は使えなくなる
-  // println!("{}", foo.x);
+  // 関数のスコープの終端により、foo はドロップ
 }
