@@ -1,21 +1,17 @@
 struct Foo {
   x: i32,
-  y: i32,
 }
 
-fn do_something(a: &Foo) -> &i32 {
-  return &a.x;
+//  これだと、lifetimeが明示されてないのでだめ
+// fn do_something(foo: Foo) -> &i32 {
+fn do_something<'a>(foo: &'a Foo) -> &'a i32 {
+  return &foo.x;
 }
 fn main() {
-  let mut foo = Foo { x: 42, y: 5 };
-  let x = &mut foo.x;
+  let foo = Foo { x: 42 };
+  let x = &foo.x;
   println!("{}", x);
-  *x = 13;
-  println!("{}", x);
-
   // x はここでドロップされるため、不変な参照が作成可能
   let y = do_something(&foo);
   println!("{}", y);
-  // y はここでドロップ
-  // foo はここでドロップ
 }
