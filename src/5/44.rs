@@ -7,6 +7,5 @@ fn main() {
 
   println!("{}", foo_a.x);
   println!("{}", foo_b.x);
-  // foo_b はここでドロップ
-  // foo_a はここでドロップ
+  // ここでドロップ
 }
