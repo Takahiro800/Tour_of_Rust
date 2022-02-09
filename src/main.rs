@@ -1,9 +1,11 @@
 struct Foo {
   x: i32,
 }
-
 fn main() {
-  // 構造体をインスタンス化し、変数に束縛してメモリリソースを作成
-  let foo = Foo { x: 42 };
-  // foo は所有者
+  let foo_a = Foo { x: 42 };
+  let foo_b = Foo { x: 13 };
+
+  println!("{}", foo_a.x);
+  println!("{}", foo_b.x);
+  // ここでドロップ
 }
