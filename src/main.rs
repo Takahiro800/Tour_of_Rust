@@ -1,4 +1,13 @@
 fn main() {
-  let a: &'static str = "Ferrisは言う:\t\"こんにちは\"";
-  println!("{}", a);
+  let haiku: &'static str = "
+  書いてみたり
+  けしたり果ては
+  けしの花
+  - 立花北枝";
+  println!("{}", haiku);
+
+  println!(
+    "こんにちは \
+  世界"
+  )
 }
