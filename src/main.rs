@@ -1,13 +1,8 @@
 fn main() {
-  let haiku: &'static str = "
-  書いてみたり
-  けしたり果ては
-  けしの花
-  - 立花北枝";
-  println!("{}", haiku);
-
-  println!(
-    "こんにちは \
-  世界"
-  )
+  let a: &'static str = r#"
+    <div class="advice">
+      生文字列は様々な場面で役に立ちます。
+    </div>
+  "#;
+  println!("{}", a);
 }
