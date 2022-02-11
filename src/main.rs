@@ -1,7 +1,5 @@
 fn main() {
-  let helloworld = ["hello", " ", "world", "!"].concat();
-  println!("{}", helloworld);
-
-  let abc = ["a", "b", "c"].join(",");
-  println!("{}", abc);
+  let a = 42;
+  let f = format!("secret to life: {}", a);
+  println!("{}", f);
 }
