@@ -1,5 +1,7 @@
-fn main() {
+fn main() -> Result<(), std::num::ParseIntError> {
   let a = 42;
-  let f = format!("secret to life: {}", a);
-  println!("{}", f);
+  let a_string = a.to_string();
+  let b = a_string.parse::<i32>()?;
+  println!("{} {}", a, b);
+  Ok(())
 }
